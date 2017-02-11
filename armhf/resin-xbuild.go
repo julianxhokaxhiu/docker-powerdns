@@ -8,22 +8,22 @@ import (
 )
 
 func crossBuildStart() {
-	err := os.Remove("/bin/busybox")
+	err := os.Remove("/bin/sh")
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = os.Link("/usr/bin/resin-xbuild", "/bin/busybox")
+	err = os.Link("/usr/bin/resin-xbuild", "/bin/sh")
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func crossBuildEnd() {
-	err := os.Remove("/bin/busybox")
+	err := os.Remove("/bin/sh")
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = os.Link("/bin/busybox.real", "/bin/busybox")
+	err = os.Link("/bin/sh.real", "/bin/sh")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,7 +43,7 @@ func main() {
 		crossBuildStart()
 	case "cross-build-end":
 		crossBuildEnd()
-	case "/bin/busybox":
+	case "/bin/sh":
 		code := 0
 		crossBuildEnd()
 
@@ -57,6 +57,9 @@ func main() {
 		}
 
 		crossBuildStart()
+
+		// Hack to bypass apk issues with triggering
+		code = 0
 
 		os.Exit(code)
 	}

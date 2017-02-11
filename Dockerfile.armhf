@@ -48,7 +48,7 @@ COPY src/* /root/
 COPY armhf/qemu-arm-static /usr/bin/
 COPY armhf/resin-xbuild /usr/bin/
 
-RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "ln -s resin-xbuild /usr/bin/cross-build-start; ln -s resin-xbuild /usr/bin/cross-build-end; ln /bin/busybox /bin/busybox.real" ]
+RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "ln -s resin-xbuild /usr/bin/cross-build-start; ln -s resin-xbuild /usr/bin/cross-build-end; ln /bin/sh /bin/sh.real" ]
 
 RUN [ "cross-build-start" ]
 
