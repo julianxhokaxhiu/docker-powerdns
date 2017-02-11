@@ -64,7 +64,8 @@ RUN apk --update add --no-cache \
     pdns-backend-sqlite3 \
     sqlite \
     curl \
-    dbus
+    dbus \
+    libldap
 
 # Required by PowerDNS Admin GUI
 RUN apk --update add --no-cache --virtual .build-deps \
