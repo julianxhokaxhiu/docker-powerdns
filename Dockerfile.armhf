@@ -95,6 +95,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
 
 RUN mkdir -p /usr/share/webapps/ \
     && cd /usr/share/webapps/ \
+    && git config --system http.sslverify false \
     && git clone https://github.com/ngoduykhanh/PowerDNS-Admin.git powerdns-admin \
     && cd /usr/share/webapps/powerdns-admin \
     && pip install --no-cache-dir -r requirements.txt
