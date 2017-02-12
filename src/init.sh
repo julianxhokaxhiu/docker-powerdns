@@ -46,8 +46,8 @@ fi
 
 # Fix permissions
 find $DATA_DIR -type d -exec chmod 775 {} \;
-find $DATA_DIR -type f -exec chmod 644 {} \;
-chown -R root:root $DATA_DIR
+find $DATA_DIR -type f -exec chmod 664 {} \;
+chown -R nobody:nobody $DATA_DIR
 
 if [ $ENABLE_ADBLOCK = true ]; then
   # Run at least the first time
