@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:edge
 MAINTAINER Julian Xhokaxhiu <info at julianxhokaxhiu dot com>
 
 # Environment variables

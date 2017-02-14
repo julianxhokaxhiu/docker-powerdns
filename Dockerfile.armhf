@@ -1,4 +1,4 @@
-FROM armhf/alpine
+FROM armhf/alpine:edge
 MAINTAINER Julian Xhokaxhiu <info at julianxhokaxhiu dot com>
 
 # Environment variables
