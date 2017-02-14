@@ -1,4 +1,4 @@
-FROM scratch
+FROM armhf/alpine
 MAINTAINER Julian Xhokaxhiu <info at julianxhokaxhiu dot com>
 
 # Environment variables
@@ -26,11 +26,6 @@ ENV CRONTAB_TIME '0 10 * * *'
 
 # Enable the AdBlock feature
 ENV ENABLE_ADBLOCK false
-
-# Unpack the rootfs
-###################
-
-ADD armhf/alpine-minirootfs-3.5.0-armhf.tar /
 
 # Create Volume entry points
 ############################
