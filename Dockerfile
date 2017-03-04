@@ -19,7 +19,8 @@ ENV CUSTOM_DNS "8.8.8.8;8.8.4.4;[2001:4860:4860::8888];[2001:4860:4860::8844]"
 # See https://doc.powerdns.com/md/authoritative/settings/#api-key
 ENV API_KEY ""
 
-# Change this cron rule to what fits best for you
+# Change this cron rule to what fits best for you.
+# Used only if ENABLE_ADBLOCK=true
 # By Default = At 10:00 UTC ~ 2am PST/PDT
 ENV CRONTAB_TIME '0 10 * * *'
 
