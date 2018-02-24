@@ -8,7 +8,7 @@ See [Dockerfile](Dockerfile#L9)
 
 ## IPv6 support
 
-In order to enable this Docker to handle IPv6 queries, you should do some further actions. See this [preparation script](https://github.com/julianxhokaxhiu/vps-powered-by-docker/blob/master/modules/dns_server.sh#L16) for more informations.
+In order to enable this Docker to handle IPv6 queries, you should do some further actions. See this [preparation script](https://github.com/julianxhokaxhiu/vps-powered-by-docker/blob/master/modules/dns.lan.sh#L16-L20) for more informations.
 
 ## Ad-Block feature
 
