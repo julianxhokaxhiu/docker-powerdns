@@ -1,4 +1,4 @@
-FROM armhf/alpine:edge
+FROM arm32v6/alpine:edge
 MAINTAINER Julian Xhokaxhiu <info at julianxhokaxhiu dot com>
 
 # Environment variables
@@ -41,8 +41,8 @@ COPY src/* /root/
 # For cross compile on dockerhub
 ################################
 
-COPY armhf/qemu-arm-static /usr/bin/
-COPY armhf/resin-xbuild /usr/bin/
+COPY armv6/qemu-arm-static /usr/bin/
+COPY armv6/resin-xbuild /usr/bin/
 
 RUN [ "/usr/bin/qemu-arm-static", "/bin/sh", "-c", "ln -s resin-xbuild /usr/bin/cross-build-start; ln -s resin-xbuild /usr/bin/cross-build-end; ln /bin/sh /bin/sh.real" ]
 
