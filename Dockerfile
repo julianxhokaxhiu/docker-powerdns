@@ -77,6 +77,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
     mariadb-dev \
     py-pip \
     libffi-dev \
+    libxslt-dev \
     openldap-dev
 
 # Install PowerDNS Admin GUI
