@@ -78,6 +78,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
     py-pip \
     libffi-dev \
     libxslt-dev \
+    libxmlsec1-dev \
     openldap-dev
 
 # Install PowerDNS Admin GUI
