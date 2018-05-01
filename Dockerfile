@@ -74,6 +74,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
     gcc \
     musl-dev \
     python-dev \
+    mariadb-dev \
     py-pip \
     libffi-dev \
     openldap-dev
