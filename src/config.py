@@ -40,3 +40,7 @@ RECORDS_ALLOW_EDIT = ['A', 'AAAA', 'CNAME', 'SPF', 'PTR', 'MX', 'TXT']
 
 # EXPERIMENTAL FEATURES
 PRETTY_IPV6_PTR = False
+
+# SAML Authnetication
+SAML_ENABLED = False
+SAML_DEBUG = False

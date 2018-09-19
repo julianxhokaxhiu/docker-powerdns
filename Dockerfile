@@ -66,16 +66,16 @@ RUN apk --update add --no-cache \
     sqlite \
     curl \
     dbus \
-    libldap
+    libldap \
+    python3
 
 # Required by PowerDNS Admin GUI
 RUN apk --update add --no-cache --virtual .build-deps \
     git \
     gcc \
     musl-dev \
-    python-dev \
+    python3-dev \
     mariadb-dev \
-    py-pip \
     libffi-dev \
     libxslt-dev \
     xmlsec-dev \
@@ -88,7 +88,7 @@ RUN mkdir -p /usr/share/webapps/ \
     && cd /usr/share/webapps/ \
     && git clone https://github.com/ngoduykhanh/PowerDNS-Admin.git powerdns-admin \
     && cd /usr/share/webapps/powerdns-admin \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip3 install --no-cache-dir -r requirements.txt
 
 # Cleanup
 #########
