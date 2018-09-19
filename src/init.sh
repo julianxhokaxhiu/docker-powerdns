@@ -27,7 +27,7 @@ sedeasy "api-key=API_KEY" "api-key=$API_KEY" /etc/pdns/pdns.conf
 sedeasy "gsqlite3-database=DATABASE_PATH" "gsqlite3-database=$POWERDNS_DB_PATH/db" /etc/pdns/pdns.conf
 
 # Add custom DNS entries
-sedeasy "forward-zones-recurse=.=CUSTOM_DNS" "forward-zones-recurse=.=$CUSTOM_DNS" /etc/pdns/recursor.conf
+sedeasy ";CUSTOM_DNS" ";$CUSTOM_DNS" /etc/pdns/recursor.conf
 
 # Update PowerDNS Admin GUI configuration file
 sedeasy "PDNS_API_KEY = 'PDNS_API_KEY'" "PDNS_API_KEY = '$API_KEY'" /usr/share/webapps/powerdns-admin/config.py
