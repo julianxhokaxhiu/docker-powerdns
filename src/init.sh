@@ -43,20 +43,18 @@ if ! [ -f "$POWERDNSGUI_DB_PATH/db" ]; then
   flask db init --directory ./migrations
   flask db migrate -m "Init DB" --directory ./migrations
   flask db upgrade --directory ./migrations
+  # Update PowerDNS Admin GUI configurations for PDNS URLs and API KEY
+  sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) VALUES ('pdns_api_url', 'http://127.0.0.1:8081');"
+  sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) VALUES ('pdns_api_key', '${API_KEY}');"
 else
   set +e
   flask db migrate -m "Upgrade BD Schema" --directory ./migrations
   flask db upgrade --directory ./migrations
+  # Update PowerDNS Admin GUI configurations for PDNS URLs and API KEY
+  sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='http://127.0.0.1:8081' WHERE name='pdns_api_url';"
+  sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='${API_KEY}' WHERE name='pdns_api_key';"
   set -e
 fi
-
-# Update PowerDNS Admin GUI configurations for PDNS URLs and API KEY
-# Insert rows if they do not exist...
-sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) SELECT * FROM (SELECT 'pdns_api_url', 'http://127.0.0.1:8081') AS tmp WHERE NOT EXISTS (SELECT name FROM setting WHERE name = 'pdns_api_url') LIMIT 1;"
-sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) SELECT * FROM (SELECT 'pdns_api_key', '${API_KEY}') AS tmp WHERE NOT EXISTS (SELECT name FROM setting WHERE name = 'pdns_api_key') LIMIT 1;"
-# ...otherwise forcefully update them
-sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='http://127.0.0.1:8081' WHERE name='pdns_api_url';"
-sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='${API_KEY}' WHERE name='pdns_api_key';"
 cd ~
 
 # Fix permissions
