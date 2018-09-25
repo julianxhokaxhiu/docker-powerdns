@@ -79,7 +79,9 @@ RUN apk --update add --no-cache --virtual .build-deps \
     libffi-dev \
     libxslt-dev \
     xmlsec-dev \
-    openldap-dev
+    openldap-dev \
+    nodejs \
+    npm
 
 # Install PowerDNS Admin GUI
 ##############################
@@ -88,7 +90,10 @@ RUN mkdir -p /usr/share/webapps/ \
     && cd /usr/share/webapps/ \
     && git clone https://github.com/ngoduykhanh/PowerDNS-Admin.git powerdns-admin \
     && cd /usr/share/webapps/powerdns-admin \
-    && pip3 install --no-cache-dir -r requirements.txt
+    && pip3 install --no-cache-dir -r requirements.txt \
+    && mv package.json app/static \
+    && cd app/static \
+    && npm i
 
 # Cleanup
 #########

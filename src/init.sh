@@ -39,10 +39,18 @@ if ! [ -f "$POWERDNS_DB_PATH/db" ]; then
 fi
 
 # Create SQLite database for PowerDNS Admin if it's doesn't exist
+cd /usr/share/webapps/powerdns-admin
 if ! [ -f "$POWERDNSGUI_DB_PATH/db" ]; then
-  sqlite3 $POWERDNSGUI_DB_PATH/db ".databases"
-  /usr/share/webapps/powerdns-admin/create_db.py
+  flask db init --directory ./migrations
+  flask db migrate -m "Init DB" --directory ./migrations
+  flask db upgrade --directory ./migrations
+else
+  set +e
+  flask db migrate -m "Upgrade BD Schema" --directory ./migrations
+  flask db upgrade --directory ./migrations
+  set -e
 fi
+cd ~
 
 # Fix permissions
 find $DATA_DIR -type d -exec chmod 775 {} \;
