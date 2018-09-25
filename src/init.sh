@@ -30,7 +30,6 @@ sedeasy "gsqlite3-database=DATABASE_PATH" "gsqlite3-database=$POWERDNS_DB_PATH/d
 sedeasy ";CUSTOM_DNS" ";$CUSTOM_DNS" /etc/pdns/recursor.conf
 
 # Update PowerDNS Admin GUI configuration file
-sedeasy "PDNS_API_KEY = 'PDNS_API_KEY'" "PDNS_API_KEY = '$API_KEY'" /usr/share/webapps/powerdns-admin/config.py
 sedeasy "SQLALCHEMY_DATABASE_URI = 'SQLALCHEMY_DATABASE_URI'" "SQLALCHEMY_DATABASE_URI = 'sqlite:///$POWERDNSGUI_DB_PATH/db'" /usr/share/webapps/powerdns-admin/config.py
 
 # Create SQLite database for PowerDNS if it's doesn't exist
@@ -50,6 +49,14 @@ else
   flask db upgrade --directory ./migrations
   set -e
 fi
+
+# Update PowerDNS Admin GUI configurations for PDNS URLs and API KEY
+# Insert rows if they do not exist...
+sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) SELECT * FROM (SELECT 'pdns_api_url', 'http://127.0.0.1:8081') AS tmp WHERE NOT EXISTS (SELECT name FROM setting WHERE name = 'pdns_api_url') LIMIT 1;"
+sqlite3 "$POWERDNSGUI_DB_PATH/db" "INSERT INTO setting (name, value) SELECT * FROM (SELECT 'pdns_api_key', '${API_KEY}') AS tmp WHERE NOT EXISTS (SELECT name FROM setting WHERE name = 'pdns_api_key') LIMIT 1;"
+# ...otherwise forcefully update them
+sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='http://127.0.0.1:8081' WHERE name='pdns_api_url';"
+sqlite3 "$POWERDNSGUI_DB_PATH/db" "UPDATE setting SET value='${API_KEY}' WHERE name='pdns_api_key';"
 cd ~
 
 # Fix permissions
